@@ -64,6 +64,13 @@ ALLOWED_TOOLS=(
     "Bash(go test *)"
     "Bash(python -m pytest *)"
     "Bash(pytest *)"
+    "Bash(npm run build *)"
+    "Bash(go build *)"
+    "Bash(cargo build *)"
+    "Bash(cargo test *)"
+    "Bash(python -m build *)"
+    "WebSearch"
+    "WebFetch"
     "mcp__claude_ai_Slack__slack_send_message"
     "mcp__claude_ai_Slack__slack_search_channels"
 )
