@@ -1,0 +1,57 @@
+# [Project Name]
+
+## Overview
+
+Brief description of the project — what it does, who it's for.
+
+**Tech stack:** [e.g., Go + PostgreSQL, Next.js + TypeScript, Python + FastAPI]
+
+---
+
+## Current Priorities
+
+<!-- This is what the check-in bot reads to decide what to work on next. -->
+<!-- Keep it ordered — #1 is what gets picked up first. -->
+
+1. [First priority — be specific, e.g., "Add user authentication with JWT tokens"]
+2. [Second priority]
+3. [Third priority]
+
+---
+
+## Architecture Notes
+
+<!-- Key structural decisions the bot should know about. -->
+
+- [e.g., "API routes are in src/routes/, each file handles one resource"]
+- [e.g., "Database migrations live in db/migrations/ using golang-migrate"]
+- [e.g., "Frontend state is managed with Zustand, not Redux"]
+
+---
+
+## Commands
+
+**Test:**
+```bash
+# e.g., go test ./..., npm test, pytest
+```
+
+**Build:**
+```bash
+# e.g., go build ./cmd/server, npm run build
+```
+
+**Lint:**
+```bash
+# e.g., golangci-lint run, npm run lint
+```
+
+---
+
+## Constraints
+
+<!-- Things the bot should NOT do. -->
+
+- [e.g., "Do not modify the database schema without a migration"]
+- [e.g., "Do not add new npm dependencies without discussion"]
+- [e.g., "Keep all API responses under the existing envelope format"]

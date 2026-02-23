@@ -7,13 +7,13 @@ This system uses **Claude Code in headless mode** to perform daily automated che
 **How it works:**
 ```
 ┌──────────┐     ┌─────────────────┐     ┌───────────┐
-│  Cron /  │────▶│  Claude Code     │────▶│  Slack    │
-│  Schedule│     │  (headless -p)   │     │  Message  │
-└──────────┘     │                  │     └───────────┘
-                 │  Reads repo      │
-                 │  Runs tests      │     ┌───────────┐
-                 │  Writes code     │────▶│  Git      │
-                 │  Posts to Slack  │     │  Branch   │
+│  Cron /  │────▶│  Claude Code    │────▶│  Slack    │
+│  Schedule│     │  (headless -p)  │     │  Message  │
+└──────────┘     │                 │     └───────────┘
+                 │  Reads repo     │
+                 │  Runs tests     │     ┌───────────┐
+                 │  Writes code    │────▶│  Git      │
+                 │  Posts to Slack │     │  Branch   │
                  └─────────────────┘     └───────────┘
 ```
 
