@@ -97,12 +97,12 @@ echo "=======================" | tee -a "$LOG_FILE"
 echo "" | tee -a "$LOG_FILE"
 
 # --- Run Claude in headless mode ---
+cd "$PROJECT_DIR"
 claude -p "$PROMPT" \
     --max-turns "$MAX_TURNS" \
     --allowedTools "$TOOLS_CSV" \
     --append-system-prompt-file "$SCRIPT_DIR/checkin-prompt.md" \
     --output-format json \
-    --cwd "$PROJECT_DIR" \
     2>&1 | tee -a "$LOG_FILE"
 
 EXIT_CODE=${PIPESTATUS[0]}
