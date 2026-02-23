@@ -14,7 +14,18 @@ Look for a `CLAUDE.md` file in the project root. If it exists, read it to unders
 - Build command
 - Constraints
 
-If no `CLAUDE.md` exists, note this in your status update and proceed with what you can infer from the repo structure.
+If no `CLAUDE.md` exists:
+
+1. Review the repo structure, README, config files (package.json, go.mod, pyproject.toml, etc.), and recent git history to understand the project
+2. Create a `CLAUDE.md` file with your best understanding of:
+   - Project name and description
+   - Tech stack
+   - Architecture notes (key directories, patterns)
+   - Test and build commands (if discoverable)
+   - Constraints (leave empty if unknown)
+   - Current priorities: set to `1. [Review and define priorities]` as a placeholder
+3. Commit the new `CLAUDE.md` on a branch: `checkin/YYYY-MM-DD-add-claude-md`
+4. Note in your Slack status that you created the initial `CLAUDE.md` and it needs human review
 
 ## Step 2: Assess Current State
 
@@ -38,7 +49,7 @@ Based on the priorities in CLAUDE.md, decide:
 - The main branch is clean (no uncommitted changes)
 
 **Report only (no code changes) if ANY of these are true:**
-- No CLAUDE.md or no priorities defined
+- No actionable priorities defined (placeholder priorities don't count)
 - The next task is too large or ambiguous
 - The working tree is dirty
 - Tests are failing
@@ -50,6 +61,7 @@ Based on the priorities in CLAUDE.md, decide:
 2. Implement the change with clean, focused commits
 3. Run tests after your changes to verify nothing broke
 4. Do NOT push to remote — leave the branch local
+5. Update `CLAUDE.md`: mark the completed priority as done by prefixing it with `~` and moving it below active items (e.g., `~1. Add user auth — done via checkin/2026-02-23`)
 
 ## Step 4: Post Status to Slack
 

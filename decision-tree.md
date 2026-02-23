@@ -6,11 +6,14 @@ flowchart TD
 
     %% Step 1: Project Context
     READ_CLAUDE -->|Yes| PARSE[Read project name, priorities,\ntech stack, test/build commands,\nconstraints]
-    READ_CLAUDE -->|No| NO_CLAUDE[Infer context from repo structure\nNo priorities available]
+    READ_CLAUDE -->|No| INFER[Review repo structure,\nREADME, config files,\ngit history]
+
+    INFER --> CREATE_CLAUDE[Create CLAUDE.md\nwith inferred project info\non branch checkin/YYYY-MM-DD-add-claude-md]
+    CREATE_CLAUDE --> REPORT_NEW[📝 Report Only\nNote: created CLAUDE.md\nneeds human review]
+    REPORT_NEW --> SLACK
 
     %% Step 2: Assess State
     PARSE --> ASSESS[Assess Current State]
-    NO_CLAUDE --> ASSESS
 
     ASSESS --> GIT_LOG[git log — recent commits]
     ASSESS --> GIT_STATUS[git status — clean or dirty?]
@@ -28,9 +31,9 @@ flowchart TD
     TESTS_PASS -->|No| REPORT_ONLY[📝 Report Only\nNo code changes]
 
     %% Step 3: Decision Gate
-    DECIDE_GATE --> HAS_PRIORITIES{Priorities\ndefined?}
+    DECIDE_GATE --> HAS_PRIORITIES{Actionable\npriorities\ndefined?}
 
-    HAS_PRIORITIES -->|No| REPORT_ONLY
+    HAS_PRIORITIES -->|No / Placeholder only| REPORT_ONLY
     HAS_PRIORITIES -->|Yes| CLEAN_TREE{Working tree\nclean?}
 
     CLEAN_TREE -->|No| REPORT_ONLY
@@ -47,8 +50,10 @@ flowchart TD
     CREATE_BRANCH --> WRITE_CODE[Implement the change\nwith focused commits]
     WRITE_CODE --> POST_TESTS{Run tests\nagain}
 
-    POST_TESTS -->|Pass| DONE_IMPL[✅ Implementation complete\nBranch stays local]
+    POST_TESTS -->|Pass| UPDATE_MD[Mark priority as done\nin CLAUDE.md]
     POST_TESTS -->|Fail| REVERT[Fix or revert changes\nNote failure in status]
+
+    UPDATE_MD --> DONE_IMPL[✅ Implementation complete\nBranch stays local]
 
     DONE_IMPL --> SLACK
     REVERT --> SLACK
@@ -69,11 +74,13 @@ flowchart TD
     classDef report fill:#fab1a0,stroke:#e17055,color:#2d3436
     classDef slack fill:#a29bfe,stroke:#6c5ce7,color:#2d3436
     classDef terminal fill:#dfe6e9,stroke:#b2bec3,color:#2d3436
+    classDef create fill:#fdcb6e,stroke:#e17055,color:#2d3436
 
     class READ_CLAUDE,HAS_TESTS,TESTS_PASS,HAS_PRIORITIES,CLEAN_TREE,TASK_SIZE,CONFIDENT,POST_TESTS decision
-    class PARSE,NO_CLAUDE,ASSESS,GIT_LOG,GIT_STATUS,GIT_BRANCH,RUN_TESTS action
-    class IMPLEMENT,CREATE_BRANCH,WRITE_CODE,DONE_IMPL implement
-    class REPORT_ONLY,REVERT report
+    class PARSE,ASSESS,GIT_LOG,GIT_STATUS,GIT_BRANCH,RUN_TESTS action
+    class IMPLEMENT,CREATE_BRANCH,WRITE_CODE,UPDATE_MD,DONE_IMPL implement
+    class REPORT_ONLY,REPORT_NEW,REVERT report
     class SLACK,MSG slack
     class START,FINISH,DECIDE_GATE terminal
+    class INFER,CREATE_CLAUDE create
 ```
